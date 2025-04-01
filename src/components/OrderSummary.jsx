@@ -1,8 +1,11 @@
 "use client";
 import { ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const OrderSummary = ({items, total}) => {
+    const router = useRouter();
   const [orderSummary, setorderSummary] = useState({
     address: "",
     promoCode: "",
@@ -10,6 +13,11 @@ const OrderSummary = ({items, total}) => {
 
   const totalAmount = total.toFixed(2);
   const tax = (0.02 * totalAmount).toFixed(2);
+
+  const handleOrderPlace = () => {
+    router.push('/success');
+
+  }
 
   return (
     <div className="w-[30%] bg-gray-200 p-2">
@@ -71,7 +79,7 @@ const OrderSummary = ({items, total}) => {
         </div>
       </div>
 
-      <button className="w-full bg-orange-400 hover:bg-orange-600 transition text-white py-3 mt-5  mb-3">Place Order</button>
+      <button onClick={handleOrderPlace} className="w-full bg-orange-400 hover:bg-orange-600 transition text-white py-3 mt-5  mb-3">Place Order</button>
     </div>
   );
 };
